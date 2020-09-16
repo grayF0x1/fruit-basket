@@ -29,6 +29,13 @@ sudo npm install -g fruit-basket
 npm install -g fruit-basket
 ```
 
+**If you get access errors / permission errors, try running this and then retry npm install -g fruit-basket**
+
+```
+sudo chown -R $USER /usr/local/lib/node_modules
+
+```
+
 # Run the App in Command Terminal
 - To see all available commands (options: help and command: start):
 
