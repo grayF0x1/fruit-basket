@@ -51,3 +51,11 @@ fruit-basket start
 - When prompted 'Enter CSV File:', insert 'fruit-basket.csv' or the full file path at '/Users/myName/fruit-basket.csv' in
 field and hit Enter
 - App should execute with proper outputs
+
+# Publish to NPM
+- To publish changes, call these commands in terminal:
+
+```
+npm publish
+yarn publish
+```
