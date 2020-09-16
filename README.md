@@ -1,7 +1,4 @@
-# Christina Lafferty's Fruit Basket App
-
-September 15, 2020 - Coding Interview
-
+# Command Line Tool App (Fruit-Basket)
 Build a console application (CLI) that allows a user to process a CSV-file and produce a summary report from it.
 
 # Prerequisites
