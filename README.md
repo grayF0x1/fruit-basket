@@ -17,13 +17,13 @@ Build a console application (CLI) that allows a user to process a CSV-file and p
 - **MAC: Run this in Terminal:**
 
 ```
-sudo npm install -g fruit-basket
+sudo npm install -g cmd-line-app
 ```
 
 - **WINDOWS: Run this in Terminal**:
 
 ```
-npm install -g fruit-basket
+npm install -g cmd-line-app
 ```
 
 **If you get access errors / permission errors, try running this and then retry npm install -g fruit-basket**
