@@ -33,6 +33,23 @@ sudo chown -R $USER /usr/local/lib/node_modules
 
 ```
 
+# Make App Globally Available
+
+- Once installed, go to the directory where fruit-basket app lives (For ex: 'Desktop/apps/fruit-basket') run these two commands:
+
+```
+cd Desktop/apps/fruit-basket
+```
+
+- Still inside the fruit-basket directory, enter these two lines to make the app available globally. You will be able to run a command in terminal from anywhere.
+
+```
+npm link
+yarn link
+
+// entering command 'fruit-basket' will yield the app output
+```
+
 # Run the App in Command Terminal
 - To see all available commands (options: help and command: start):
 
@@ -58,7 +75,6 @@ field and hit Enter
 
 # Publish to NPM
 - To publish changes, call these commands in terminal:
-
 ```
 npm publish
 yarn publish
