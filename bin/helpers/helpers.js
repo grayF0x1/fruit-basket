@@ -63,6 +63,7 @@ exports.logFruitTypesInDescOrder = (data) => {
         b = b.count;
     return (a.count < b) ? 1 : (a > b) ? -1 : 0;
   });
+  console.log('The number of each type of fruit in descending order:');
   uniqueFruit.forEach(value => console.log(value.fruitType + ': ' + value.count));
   console.log(' ');
 }
