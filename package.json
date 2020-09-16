@@ -1,6 +1,6 @@
 {
   "name": "fruit-basket",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "bin/index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "fruit-basket": "./bin/index.js"
   },
   "dependencies": {
+    "commander": "^6.1.0",
     "csv-parser": "^2.3.3",
     "fs": "0.0.1-security",
     "helpers": "0.0.6",
