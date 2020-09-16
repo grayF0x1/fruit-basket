@@ -35,10 +35,10 @@ sudo chown -R $USER /usr/local/lib/node_modules
 
 # Make App Globally Available
 
-- Once installed, go to the directory where fruit-basket app lives (For ex: 'Desktop/apps/fruit-basket') run these two commands:
+- Once installed, go to the directory where fruit-basket app lives (For ex: 'Desktop/apps/fruit-basket'):
 
 ```
-cd Desktop/apps/fruit-basket
+cd Desktop/apps/fruit-basket // for example
 ```
 
 - Still inside the fruit-basket directory, enter these two lines to make the app available globally. You will be able to run a command in terminal from anywhere.
