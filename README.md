@@ -20,7 +20,7 @@ Build a console application (CLI) that allows a user to process a CSV-file and p
 - **MAC: Run this in Terminal:**
 
 ```
-sudo npm install -g  fruit-basket
+sudo npm install -g fruit-basket
 ```
 
 - **WINDOWS: Run this in Terminal**:
@@ -30,12 +30,24 @@ npm install -g fruit-basket
 ```
 
 # Run the App in Command Terminal
-- Execute the following command to start the app:
+- To see all available commands (options: help and command: start):
 
 ```
 fruit-basket
 ```
 
-- When prompted 'Enter CSV File:', insert 'fruit-basket.csv' in
+- Execute the following command to get help:
+
+```
+fruit-basket help
+```
+
+- Execute the following command to start the app:
+
+```
+fruit-basket start
+```
+
+- When prompted 'Enter CSV File:', insert 'fruit-basket.csv' or the full file path at '/Users/myName/fruit-basket.csv' in
 field and hit Enter
 - App should execute with proper outputs

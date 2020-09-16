@@ -3,6 +3,7 @@
   var csv = require('csv-parser'),
       fs = require('fs'),
       helpers = require('./helpers'),
+      program = require('commander'),
       readline = require('readline'),
       fruitDataValid = [],
       rl = readline.createInterface({
@@ -31,6 +32,7 @@
     fs.readFile(file, 'utf8' , (error, data) => { // this will return the data in string form
       if (error) {
         console.log('ERROR: FILE DOES NOT EXIST! ' + error);
+        process.exit();
         return;
       }
       console.log(data); // this needs to be uncommented out!
@@ -47,7 +49,9 @@
     .on('end', () => {
       console.log('LOADED FILE!')
       if (!validateData(fruitDataValid)) {
-        return console.log('ERROR: DATA IS NOT VALID');
+        console.log('ERROR: DATA IS NOT VALID');
+        process.exit();
+        return;
       };
 
       console.log('DATA VALID');
@@ -73,6 +77,31 @@
     });
   }
 
-  init();
-  showFilePrompt(); //input functionality
+  program
+    .command('help')
+    .description('Display Verbose Help')
+    .action(function(){
+      console.log(' ');
+      console.log('****************************');
+      console.log('----------------------------');
+      console.log('NEED HELP TO GET STARTED?');
+      console.log('----------------------------');
+      console.log(' ');
+      console.log('HOW TO RUN THIS APP?');
+      console.log('To run the fruit-basket app, enter this command "fruit-basket start"')
+      console.log('****************************');
+      console.log(' ');
+      process.exit();
+  });
+
+  program
+    .command('start')
+    .description('start fruit-basket app')
+    .action(function(){
+      init();
+      showFilePrompt(); //input functionality
+  });
+
+  program.parse(process.argv);
+
 }());
