@@ -33,6 +33,14 @@ sudo chown -R $USER /usr/local/lib/node_modules
 
 ```
 
+# Install Dependencies
+- Go to the directory where fruit-basket app lives (For ex: 'Desktop/apps/fruit-basket'):
+- Run Yarn install to get all the project dependencies - should create a 'node_modules' folfer inside of 'fruit-basket' folder
+
+```
+yarn install
+```
+
 # Make App Globally Available
 
 - Once installed, go to the directory where fruit-basket app lives (For ex: 'Desktop/apps/fruit-basket'):
