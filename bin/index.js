@@ -82,7 +82,7 @@
     .description('Display Verbose Help')
     .action(function(){
       console.log(' ');
-      console.log('****************************');
+      console.log('****************************************');
       console.log('----------------------------');
       console.log('NEED HELP TO GET STARTED?');
       console.log('----------------------------');
@@ -91,8 +91,12 @@
       console.log('To run the fruit-basket app, enter this command "fruit-basket start"')
       console.log('****************************');
       console.log(' ');
+      console.log('HOW TO RUN UNIT TESTS?');
+      console.log('Enter this command "npm test"');
+      console.log('****************************************');
+      console.log(' ');
       process.exit();
-  });
+    });
 
   program
     .command('start')
@@ -100,7 +104,7 @@
     .action(function(){
       init();
       showFilePrompt(); //input functionality
-  });
+    });
 
   program.parse(process.argv);
 
