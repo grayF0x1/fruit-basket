@@ -1,68 +1,116 @@
-exports.logTotalFruitCount = (data) => {
-  console.log('Total number of fruit:');
-  console.log(data.length);
-  console.log(' ');
+/*-------------------getters methods----------------*/
+exports.getNumberOfFruit = (data) => {
+  return (data || []).length;
 }
 
-exports.logTypesOfFruit = (data) => {
-  var fruitTypes = [];
+exports.getOccuranceOfFruit = (data) => {
+  return data.filter(function(v) {
+        return v.hasOwnProperty(value);
+  });
+}
 
+exports.getTypesOfFruit = (data) => {
+  var fruitTypes = [];
   // create an array of only the 'fruit-type' values
-  data.forEach(function(value) {
-    fruitTypes.push(value['fruit-type']);
+  (data || []).forEach(function(value) {
+    value.hasOwnProperty('fruit-type') && fruitTypes.push(value['fruit-type']);
   });
 
   // removes duplicates from fruitType array and gets unique types of fruit to store in a set
   fruitTypes.splice(0, fruitTypes.length, ...(new Set(fruitTypes)));
-  console.log('Total types of fruit:');
-  console.log(fruitTypes.length);
-  console.log(' ');
+  return fruitTypes;
 }
 
-exports.logOldestFruit = (data) => {
+exports.getTypesOfFruitNum = (data) => {
+  return this.getTypesOfFruit(data).length;
+}
+
+exports.getOldestFruitValue = (data) => {
   var ageInDays = 'age-in-days',
-      largestNum = 0,
-      oldestFruits = [];
+      largestNum = 0;
 
-  // could you sort from the highest first? map?
-
-  // find the oldest value
-  data.forEach(function(value) {
+  (data ||[]).forEach(function(value) {
     if (largestNum < value[ageInDays]){
       largestNum = value[ageInDays];
     }
   });
+  return largestNum;
+}
 
-  //return an array with the fruits with the oldest days
-  oldestFruits = data.filter(value => value[ageInDays] === largestNum)
+exports.getSortedFruitsWithOldestDay = (data, largestAge) => {
+  return (data || []).filter(value => (value['age-in-days'] || null) === largestAge)
   .sort(function(a,b) { // sort the array alphabetically
     var fruitTypeA = a['fruit-type'],
         fruitTypeB = b['fruit-type'];
     return fruitTypeA > fruitTypeB ? 1 : fruitTypeA < fruitTypeB ? -1 : 0;
   });
+}
+
+exports.getArrayOfAllFruitsWithCount = (data) => {
+  var fruits = [];
+  (data || []).forEach(function(value) {
+    if (value.hasOwnProperty('fruit-type')) {
+      var fruit = {
+        fruitType: value['fruit-type'],
+        count: data.reduce((acc,cur) => (cur['fruit-type'] === value['fruit-type'] ? ++acc : acc), 0)
+      }
+      fruits.push(fruit);
+    }
+  });
+  return fruits;
+}
+
+exports.getArrayWithoutDuplicates = (arr) => {
+  return Array.from(new Set((arr || []).map(JSON.stringify))).map(JSON.parse);
+}
+
+exports.getArraySortedByDecreasingCount = (arr) => {
+  return (arr || []).sort(function(a, b) { //sort the array by count from highest to lowest
+    var a = a.count,
+        b = b.count;
+    if (!a || !b) {
+      return arr;
+    }
+    return (a < b) ? 1 : (a > b) ? -1 : 0;
+  });
+}
+
+exports.getCountOfAllFruitTypesAndChars = (arr, compareFruitObj) => {
+  return (arr || []).reduce(function(acc, fruit) {
+    return fruit['fruit-type'] === compareFruitObj.fruitType &&
+      fruit['characteristic1'] === compareFruitObj.char1 &&
+      fruit['characteristic2']  === compareFruitObj.char2 ? ++acc : acc;
+  }, 0);
+}
+
+/*-------------------logger methods----------------*/
+exports.logTotalFruitCount = (data) => {
+  console.log('Total number of fruit:');
+  console.log(this.getNumberOfFruit(data));
+  console.log(' ');
+}
+
+exports.logTypesOfFruit = (data) => {
+  console.log('Total types of fruit:');
+  console.log(this.getTypesOfFruitNum(data));
+  console.log(' ');
+}
+
+exports.logOldestFruit = (data) => {
+  var largestAge = this.getOldestFruitValue(data) || 0; // find the oldest value
+
+  //return an array with the fruits with the oldest days
   console.log('Oldest fruit & age:');
-  oldestFruits.forEach(function(value) {
-    console.log(value['fruit-type'] + ': ' + value[ageInDays]);
+  this.getSortedFruitsWithOldestDay(data, largestAge).forEach(function(value) {
+    console.log(value['fruit-type'] + ': ' + value['age-in-days']);
   });
   console.log(' ');
 }
 
 exports.logFruitTypesInDescOrder = (data) => {
-  var fruits =[];
-  data.forEach(function(value) {
-    var fruit = {
-      fruitType: value['fruit-type'],
-      count: data.reduce((acc,cur) => (cur['fruit-type'] === value['fruit-type'] ? ++acc : acc), 0)
-    }
-    fruits.push(fruit);
-  })
-  //remove the duplicates from the array
-  uniqueFruit = Array.from(new Set(fruits.map(JSON.stringify))).map(JSON.parse)
-  .sort(function(a, b) { //sort the array by count from highest to lowest
-    var a = a.count,
-        b = b.count;
-    return (a.count < b) ? 1 : (a > b) ? -1 : 0;
-  });
+  var fruits = this.getArrayOfAllFruitsWithCount(data); // returns array with all fruitTypes and the number of each
+  uniqueFruit = this.getArrayWithoutDuplicates(fruits);
+  uniqueFruit = this.getArraySortedByDecreasingCount(uniqueFruit);
   console.log('The number of each type of fruit in descending order:');
   uniqueFruit.forEach(value => console.log(value.fruitType + ': ' + value.count));
   console.log(' ');
@@ -72,21 +120,26 @@ exports.logFruitsTypesAndCharInDescOrder = (data) => {
   var fruit = [],
       uniqueFruit;
 
-  data.forEach(function(value) { //create a new array with objects contains properites to log out
+  data.forEach(function(value) { //create a new array with objects contains properites to log out (contains duplicates)
     var fruitObj = {
       fruitType: value['fruit-type'],
       char1: value['characteristic1'],
       char2: value['characteristic2']
     };
 
-    fruitObj.count = data.reduce(function(acc, fruit) {
-      return fruit['fruit-type'] === fruitObj.fruitType &&
-        fruit['characteristic1'] === fruitObj.char1 &&
-        fruit['characteristic2']  === fruitObj.char2 ? ++acc : acc;
-    }, 0);
+    /*count up by fruit-type and characteristics (based on comparing an object)
+      for ex: [
+        { 'fruit-type': 'apple', 'characteristic1': 'red', 'characteristic2': 'sweet'},
+        { 'fruit-type': 'orange', 'characteristic1': 'round', 'characteristic2': 'sweet'}
+        { 'fruit-type': 'apple', 'characteristic1': 'red', 'characteristic2': 'sweet'}
+    ]
+      would give us a count of 2 bc there are two instances of apple, red, and sweet
+    */
+    fruitObj.count = this.getCountOfAllFruitTypesAndChars(data, fruitObj);
     fruit.push(fruitObj);
-  });
-  uniqueFruit = Array.from(new Set(fruit.map(JSON.stringify))).map(JSON.parse);
+  }, this);
+
+  uniqueFruit = this.getArrayWithoutDuplicates(fruit);
   console.log('The various characteristics (count, color, shape, etc.) of each fruit by type:')
   uniqueFruit.forEach(function(fruit) {
     console.log(fruit.count + ' ' + fruit.fruitType + ': ' + fruit.char1 + ', '+ fruit.char2);
